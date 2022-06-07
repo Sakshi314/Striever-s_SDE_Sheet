@@ -1,0 +1,79 @@
+#include <bits/stdc++.h> 
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+            int data;
+	        Node *next;
+            Node(int data)
+            {
+                this->data = data;
+                this->next = NULL;
+            }
+        };
+
+*****************************************************************/
+
+Node *addTwoNumbers(Node *head1, Node *head2)
+{
+    // Write your code here.
+    Node* temp1=head1,*temp2=head2;
+        int t1=0,t2=0;
+        int carry = 0;
+        while(temp1 && temp2){
+            temp1->data=(temp1->data+temp2->data)+carry;
+            carry=temp1->data/10;
+            temp1->data%=10;
+            temp2->data=temp1->data;
+            if(temp1->next==NULL&&temp2->next==NULL && carry>0){
+                Node* node=new Node(carry);
+                temp1->next=node;
+                temp1=temp1->next;
+                temp1=NULL;
+                temp2=NULL;
+            }
+            else{
+                temp1=temp1->next;
+                temp2=temp2->next;
+            }
+        }
+        while(temp1){
+            t1=1;
+            temp1->data=temp1->data+carry;
+            carry=temp1->data/10;
+            temp1->data%=10;
+            if(temp1->next==NULL&&carry>0){
+                Node* node=new Node(carry);
+                temp1->next=node;
+                //cout<<temp1->val<<endl;
+                temp1=temp1->next;
+                temp1=NULL;
+            }
+            else
+            temp1=temp1->next;
+        }
+        
+        while(temp2){
+            t2=1;
+            temp2->data=temp2->data+carry;
+            carry=temp2->data/10;
+            temp2->data%=10;
+            if(temp2->next==NULL&&carry>0){
+                Node* node=new Node(carry);
+                temp2->next=node;
+                //cout<<temp1->val<<endl;
+                temp2=temp2->next;
+                temp2=NULL;
+            }
+            else
+            temp2=temp2->next;
+        }
+        
+        if(t1==t2 || t1==1){
+            return head1;
+        }
+        else return head2;
+}
