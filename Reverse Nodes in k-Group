@@ -1,0 +1,42 @@
+#include <bits/stdc++.h> 
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+
+*****************************************************************/
+
+Node *soln(Node *head, int i,int b[],int n){
+    
+    if(head==NULL) return NULL;
+    if(i==n) return head;
+    if(b[i]==0) return soln(head,i+1,b,n);
+    Node *curr=head, *prev=NULL, *next=NULL;
+    int count=0;
+    while(curr and count<b[i]){
+        next=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=next;
+        count++;
+    }
+    head->next=soln(next, i+1,b,n);
+    return prev;
+    
+}
+
+Node *getListAfterReverseOperation(Node *head, int n, int b[]){
+    // Write your code here.
+    return soln(head,0,b,n);
+}
