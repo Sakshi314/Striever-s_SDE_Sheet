@@ -1,0 +1,22 @@
+int findMinimumCoins(int amount) 
+{
+    // Write your code here
+    vector<int>currency={1000,500,100,50,20,10,5,2,1};
+    
+    int coins=0;
+    int i=0;
+   
+    
+    while(amount>=2){
+         while(amount<currency[i]){
+            i++;
+        }
+        coins+=amount/currency[i];
+        amount%=currency[i];
+//         cout<<currency[i]<<" ";
+        
+    }
+    coins+=amount;
+    return coins;
+    
+}
