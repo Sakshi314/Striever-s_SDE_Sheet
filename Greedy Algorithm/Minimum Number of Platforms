@@ -1,0 +1,22 @@
+int calculateMinPatforms(int at[], int dt[], int n) {
+    // Write your code here.
+    int platform=1;
+    sort(at,at+n);
+    sort(dt,dt+n);
+    int i=0,j=0;
+    int currPlat=0,maxPlat=0;
+    while(i<n){
+        
+        if(at[i]<=dt[j]){
+            currPlat++;
+            i++;
+        }
+        else{
+            maxPlat=max(currPlat,maxPlat);
+            currPlat--;
+            j++;
+        }
+        
+    }
+    return max(maxPlat,currPlat);
+}
