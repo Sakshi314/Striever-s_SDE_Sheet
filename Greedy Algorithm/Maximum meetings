@@ -1,0 +1,35 @@
+#include"bits/stdc++.h"
+
+struct meet{
+    int start,end,pos;
+};
+
+bool cmp(struct meet a,struct meet b){
+    if(a.end<b.end) return true;
+    if(a.end>b.end) return false;
+    if(a.pos<b.pos) return true;
+    return false;
+}
+
+vector<int> maximumMeetings(vector<int> &start, vector<int> &end) {
+    // Write your code here.
+    int n=start.size();
+    struct meet time[n];
+    
+    for(int i=0;i<n;i++){
+        time[i].end=end[i];
+        time[i].start=start[i];
+        time[i].pos=i+1;
+    }
+    vector<int>ans;
+    sort(time,time+n,cmp);
+    int limit=time[0].end;
+    ans.push_back(time[0].pos);
+    for(int i=1;i<n;i++){
+        if(time[i].start>limit){ 
+            ans.push_back(time[i].pos);
+            limit=time[i].end;
+        }
+    }
+    return ans;
+}
