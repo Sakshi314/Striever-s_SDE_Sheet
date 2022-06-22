@@ -1,0 +1,22 @@
+void getPer(vector<string> &ans,string &s,int idx){
+    
+    if(idx==s.size()){
+        ans.push_back(s);
+        return;
+    }
+    for(int i=idx;i<s.size();i++){
+        
+        swap(s[i],s[idx]);
+        getPer(ans,s,idx+1);
+        swap(s[i],s[idx]);
+        
+    }
+    
+}
+
+vector<string> findPermutations(string &s) {
+    // Write your code here.
+    vector<string>ans;
+    getPer(ans,s,0);
+    return ans;
+}
