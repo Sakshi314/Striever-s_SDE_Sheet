@@ -1,0 +1,28 @@
+#include"bits/stdc++.h"
+void getPer(string s,int idx,vector<string>res){
+    
+    if(idx==s.size()){
+        res.push_back(s);
+        return;
+    }
+    for(int i=idx;i<s.size();i++){
+        swap(s[i],s[idx]);
+        getPer(s,idx+1,res);
+        swap(s[i],s[idx]);
+    }
+    
+}
+
+string kthPermutation(int n, int k) {
+    // Write your code here.
+    string s;
+    for(int i=1;i<=n;i++){
+        s.push_back(i+'0');
+    }
+    vector<string>res;
+    
+    getPer(s,0,res);
+    sort(res.begin(),res.end());
+    auto it=res.begin()+k-1;
+    return *it;
+}
