@@ -1,0 +1,36 @@
+void solve(int col,vector<int> &temp,vector<vector<int>> &ans,int n,vector<int>&leftRow,vector<int>&downDiagonal, vector<int>&upDiagonal){
+    
+    if(col==n){
+        ans.push_back(temp);
+        return;
+    }
+    
+    for(int i=0;i<n;i++){
+        
+        if(leftRow[i]==0 && upDiagonal[i+col]==0 && downDiagonal[n-1+(col-i)]==0){
+            leftRow[i]=1;
+            upDiagonal[i+col]=1;
+            downDiagonal[n-1+(col-i)]=1;
+            temp[n*i+col]=1;
+            solve(col+1,temp,ans,n,leftRow,downDiagonal,upDiagonal);
+            temp[n*i+col]=0;
+            leftRow[i]=0;
+            upDiagonal[i+col]=0;
+            downDiagonal[n-1+(col-i)]=0;
+            
+        }
+        
+    }
+    
+}
+
+vector<vector<int>> solveNQueens(int n) {
+    // Write your code here.
+    
+    vector<vector<int>>ans;
+    vector<int>temp(n*n,0);
+    vector<int> leftRow(n,0), downDiagonal(2*n-1,0),upDiagonal(2*n-1,0);
+    solve(0,temp,ans,n,leftRow,downDiagonal,upDiagonal);
+    return ans;
+    
+}
