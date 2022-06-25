@@ -1,0 +1,21 @@
+double multiply(int n,double mid){
+    
+    double ans=1.0;
+    while(n--){
+        ans*=mid;
+        
+    }
+    return ans;
+}
+
+double findNthRootOfM(int n, long long m) {
+	// Write your code here.
+    double ex=1e-8;
+    double high=m,low=1;
+    while((high-low)>ex){
+        double mid=(high+low)/2.0;
+        if(multiply(n,mid)<(double)m) low=mid;
+        else high=mid;
+    }
+    return low;
+}
