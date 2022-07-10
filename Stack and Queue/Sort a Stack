@@ -1,0 +1,24 @@
+void sortedStack(stack<int> &s,int n){
+    
+    if(s.empty() || (!s.empty() && s.top()<n)){
+        s.push(n);
+        return;
+    }
+    int num=s.top();
+    s.pop();
+    sortedStack(s,n);
+    s.push(num);
+    
+}
+
+
+void sortStack(stack<int> &s)
+{
+	// Write your code here
+    if(s.empty()) return;
+    int n=s.top();
+    s.pop();
+    sortStack(s);
+    sortedStack(s,n);
+    
+}
