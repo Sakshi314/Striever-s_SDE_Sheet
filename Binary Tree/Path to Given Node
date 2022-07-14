@@ -1,0 +1,28 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+  bool find(TreeNode *root,int x, vector<int> &ans){
+      
+    if(!root) return 0;  
+    bool found=0;
+    if(root->val==x || find(root->left,x,ans) || find(root->right,x,ans)){ 
+        found=1;
+        ans.push_back(root->val);
+    }
+    return found;
+    
+  }
+vector<int> Solution::solve(TreeNode* A, int B) {
+    
+    vector<int>ans;
+    find(A,B,ans);
+    reverse(ans.begin(),ans.end());
+    return ans;
+    
+}
