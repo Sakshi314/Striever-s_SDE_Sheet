@@ -1,0 +1,76 @@
+/************************************************************
+
+    Following is the Binary Tree node structure:
+    
+    template <typename T>
+    class TreeNode {
+        public :
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+
+        ~TreeNode() {
+            if(left)
+                delete left;
+            if(right)
+                delete right;
+        }
+    };
+
+************************************************************/
+#include"bits/stdc++.h"
+
+
+void getLeft(TreeNode<int>* node, vector<int>&ans){
+    TreeNode<int>* root=node;
+    while(root){
+        
+        if(root->left || root->right) 
+            ans.push_back(root->data);
+        if(root->left)
+            root=root->left;
+        else root=root->right;
+    }
+}
+void getRight(TreeNode<int>* node, vector<int>&ans){
+    TreeNode<int>* root=node;
+    vector<int>temp;
+    while(root){
+        if(root->left || root->right) 
+            temp.push_back(root->data);
+        if(root->right)
+            root=root->right;
+        else root=root->left;
+    }
+    for(int i=temp.size()-1;i>=0;i--){
+        ans.push_back(temp[i]);
+    }
+}
+void preorder(TreeNode<int>* root,vector<int>&ans){
+    
+    if(root->left==NULL && root->right==NULL) {
+        ans.push_back(root->data);
+        return;
+    }
+    if(root->left)
+    preorder(root->left,ans);
+    if(root->right)
+    preorder(root->right,ans);
+}
+
+vector<int> traverseBoundary(TreeNode<int>* root){
+    // Write your code here.
+    vector<int>ans;
+    if(!root) return ans;
+    if(root->left || root->right) ans.push_back(root->data);
+    getLeft(root->left,ans);
+    preorder(root,ans);
+    getRight(root->right,ans);
+    return ans;
+}
