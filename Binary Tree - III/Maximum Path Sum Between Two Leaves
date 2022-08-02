@@ -1,0 +1,46 @@
+/************************************************************
+
+    Following is the Tree node structure
+	
+	template <typename T>
+    class TreeNode 
+    {
+        public : 
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T val) 
+        {
+            this -> val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+#include "bits/stdc++.h"
+
+
+
+long long int ans(TreeNode<int> *root,long long int &maxi,int &count){
+    if(root==NULL) return 0;
+    if(root->left==NULL && !root->right) count++;
+    int leftVal=ans(root->left,maxi,count);
+    int rightVal=ans(root->right,maxi,count);
+    long long int curr=leftVal+rightVal+root->val;
+    maxi=max(maxi,curr);
+    return max(leftVal,rightVal)+root->val;
+    
+}
+
+long long int findMaxSumPath(TreeNode<int> *root)
+{
+    // Write your code here.
+    int count=0;
+    long long int maxi=INT_MIN;
+    count=0;
+    ans(root,maxi,count);
+    if(count<2) return -1;
+    return maxi;
+}
